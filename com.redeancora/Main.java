@@ -1,10 +1,6 @@
-package principais;
-
 import modelos.Cliente;
 import modelos.Compra;
 import modelos.Produto;
-
-import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,13 +10,13 @@ public class Main {
         Produto pneu = new Produto("Pneu", "Pneu radiais para carros de passeio, 17 polegadas.", 350.00, 50);
         Produto bateria = new Produto("Bateria", "Bateria 12V, 60Ah, ideal para carros de médio porte.", 250.00, 30);
         Produto farol = new Produto("Farol", "Farol dianteiro com tecnologia LED, para melhor visibilidade à noite.", 120.00, 20);
-        Produto óleo = new Produto("Óleo de Motor", "Óleo sintético de alta performance, 5W-30.", 35.00, 100);
+        Produto oleo = new Produto("Óleo de Motor", "Óleo sintético de alta performance, 5W-30.", 35.00, 100);
 
-        System.out.println("Produtos criados: ");
-        System.out.println("- " + pneu.getDescricao());
-        System.out.println("- " + bateria.getDescricao());
-        System.out.println("- " + farol.getDescricao());
-        System.out.println("- " + óleo.getDescricao());
+        System.out.println("\nProdutos criados:");
+        System.out.println("- " + pneu.getNome() + ": " + pneu.getDescricao());
+        System.out.println("- " + bateria.getNome() + ": " + bateria.getDescricao());
+        System.out.println("- " + farol.getNome() + ": " + farol.getDescricao());
+        System.out.println("- " + oleo.getNome() + ": " + oleo.getDescricao());
 
         Compra compra = new Compra(cliente);
         System.out.println("\nCompra iniciada para o cliente: " + cliente.getNome());
@@ -28,7 +24,7 @@ public class Main {
         compra.adicionarProduto(pneu, 5);
         compra.adicionarProduto(bateria, 3);
         compra.adicionarProduto(farol, 2);
-        compra.adicionarProduto(óleo, 10);
+        compra.adicionarProduto(oleo, 10);
 
         System.out.println("\nPedido após adicionar produtos:");
         compra.exibirPedido();
@@ -36,18 +32,26 @@ public class Main {
 
         System.out.println("\nRemovendo 1 unidade da Bateria...");
         compra.removerProduto(bateria, 1);
-
-        System.out.println("\nPedido após remoção de produto:");
         compra.exibirPedido();
         System.out.println("Valor Total após remoção: R$ " + compra.calcularValorTotal());
+
+        System.out.println("\nTentando remover 5 unidades do Pneu...");
+        compra.removerProduto(pneu, 5);
+        compra.removerProduto(pneu, 1);
 
         System.out.println("\nFinalizando a compra...");
         compra.finalizarCompra();
 
         System.out.println("\nTentando adicionar mais produtos após finalização...");
-        compra.adicionarProduto(pneu, 2);  // Não vai adicionar porque a compra está finalizada
+        compra.adicionarProduto(oleo, 5);
 
-        System.out.println("\nPedido após tentativa de adicionar produtos após finalização:");
+        System.out.println("\nTentando remover 2 unidades do Farol após finalização...");
+        compra.removerProduto(farol, 2);
+
+        System.out.println("\nPedido final após tentativa de adicionar e remover produtos após finalização:");
         compra.exibirPedido();
+
+        System.out.println("\nExibindo estoque dos produtos após a compra:");
+        compra.exibirEstoque();
     }
 }
