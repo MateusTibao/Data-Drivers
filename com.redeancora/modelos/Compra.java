@@ -35,14 +35,14 @@ public class Compra {
             produto.setEstoque(produto.getEstoque() - quantidade);
             System.out.println("Adicionado " + quantidade + " unidade(s) do produto " + produto.getNome() + " à compra.");
         } else {
-            System.out.println("Erro: Estoque insuficiente para o produto " + produto.getDescricao());
+            System.out.println("Erro: Estoque insuficiente para o produto " + produto.getNome());
         }
     }
 
     public double calcularValorTotal() {
         double total = 0;
-        for (int i = 0; i < produtos.size(); i++) {
-            total += produtos.get(i).getPreco();
+        for (Produto produto : produtos) {
+            total += produto.getPreco();
         }
         return total;
     }
@@ -66,9 +66,9 @@ public class Compra {
             }
             valorTotal -= produto.getPreco() * quantidade;
             produto.setEstoque(produto.getEstoque() + quantidade);
-            System.out.println("Removido " + quantidade + " unidade(s) do produto " + produto.getDescricao() + " da compra.");
+            System.out.println("Removido " + quantidade + " unidade(s) do produto " + produto.getNome() + " da compra.");
         } else {
-            System.out.println("Erro: Quantidade insuficiente do produto " + produto.getDescricao() + " para remover.");
+            System.out.println("Erro: Quantidade insuficiente do produto " + produto.getNome() + " para remover.");
         }
     }
 
@@ -82,9 +82,24 @@ public class Compra {
         System.out.println("Cliente: " + cliente.getNome());
         System.out.println("Data: " + data);
         System.out.println("Itens do Pedido:");
+        ArrayList<Produto> produtosExibidos = new ArrayList<>();
 
-        for (Produto produto : produtos) {
-            System.out.println("- " + produto.getDescricao() + " - R$" + produto.getPreco());
+        for (int i = 0; i < produtos.size(); i++) {
+            Produto produtoAtual = produtos.get(i);
+
+            if (!produtosExibidos.contains(produtoAtual)) {
+                int quantidade = 0;
+
+                for (int j = i; j < produtos.size(); j++) {
+                    if (produtos.get(j).equals(produtoAtual)) {
+                        quantidade++;
+                    }
+                }
+
+                produtosExibidos.add(produtoAtual);
+
+                System.out.println("- " + produtoAtual.getNome() + " - R$" + produtoAtual.getPreco() + " x " + quantidade);
+            }
         }
 
         System.out.println("Valor Total: R$" + valorTotal);
@@ -93,11 +108,28 @@ public class Compra {
     public void exibirEstoque() {
         System.out.println("Estoque dos produtos:");
 
+        ArrayList<Produto> produtosExibidos = new ArrayList<>();
+
         for (int i = 0; i < produtos.size(); i++) {
-            Produto produto = produtos.get(i);
-            System.out.println("Produto: " + produto.getDescricao() + " | Estoque: " + produto.getEstoque());
+            Produto produtoAtual = produtos.get(i);
+
+            if (!produtosExibidos.contains(produtoAtual)) {
+                int quantidade = 0;
+                for (int j = i; j < produtos.size(); j++) {
+                    if (produtos.get(j).equals(produtoAtual)) {
+                        quantidade++;
+                    }
+                }
+
+                produtosExibidos.add(produtoAtual);
+
+                System.out.println("- " + produtoAtual.getNome() + " | Quantidade disponível: " + produtoAtual.getEstoque() + " | Preço unitário: R$ " + produtoAtual.getPreco());
+            }
         }
     }
+
+
+
 
     public void finalizarCompra() {
         if (finalizada) {
