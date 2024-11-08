@@ -1,11 +1,11 @@
-import modelos.Cliente;
-import modelos.Compra;
-import modelos.Produto;
+import modelos.*;
 
 public class Main {
     public static void main(String[] args) {
-        Cliente cliente = new Cliente("Jorge Booz", "123.456.789-00", "jorge.booz@email.com", "987654321");
-        System.out.println("Cliente criado: " + cliente.getNome());
+
+        Pessoa representante = new Pessoa("Caio Freitas", "11 99999-9999", "999.999.999-99");
+        Oficina oficina = new Oficina("Mecanica Booz", "123.456.789-00", "jorge.booz@email.com", "987654321", representante);
+        System.out.println("Cliente criado: " + oficina.getNome());
 
         Produto pneu = new Produto("Pneu", "Pneu radiais para carros de passeio, 17 polegadas.", 350.00, 50);
         Produto bateria = new Produto("Bateria", "Bateria 12V, 60Ah, ideal para carros de médio porte.", 250.00, 30);
@@ -13,13 +13,13 @@ public class Main {
         Produto oleo = new Produto("Óleo de Motor", "Óleo sintético de alta performance, 5W-30.", 35.00, 100);
 
         System.out.println("\nProdutos criados:");
-        System.out.println("- " + pneu.getNome() + ": " + pneu.getDescricao());
-        System.out.println("- " + bateria.getNome() + ": " + bateria.getDescricao());
-        System.out.println("- " + farol.getNome() + ": " + farol.getDescricao());
-        System.out.println("- " + oleo.getNome() + ": " + oleo.getDescricao());
+        System.out.println("- " + pneu.getNome());
+        System.out.println("- " + bateria.getNome());
+        System.out.println("- " + farol.getNome());
+        System.out.println("- " + oleo.getNome());
 
-        Compra compra = new Compra(cliente);
-        System.out.println("\nCompra iniciada para o cliente: " + cliente.getNome());
+        Compra compra = new Compra(oficina);
+        System.out.println("\nCompra iniciada para o cliente: " + oficina.getNome());
 
         compra.adicionarProduto(pneu, 5);
         compra.adicionarProduto(bateria, 3);

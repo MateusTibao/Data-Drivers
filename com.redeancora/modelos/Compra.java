@@ -6,15 +6,15 @@ import java.util.ArrayList;
 public class Compra {
     private static int contadorId = 1;
     private int id;
-    private Cliente cliente;
+    private Oficina oficina;
     private ArrayList<Produto> produtos;
     private LocalDate data;
     private double valorTotal;
     private boolean finalizada;
 
-    public Compra(Cliente cliente) {
+    public Compra(Oficina oficina) {
         this.id = contadorId++;
-        this.cliente = cliente;
+        this.oficina = oficina;
         this.produtos = new ArrayList<>();
         this.data = LocalDate.now();
         this.valorTotal = 0.0;
@@ -79,7 +79,7 @@ public class Compra {
         }
 
         System.out.println("Compra ID: " + id);
-        System.out.println("Cliente: " + cliente.getNome());
+        System.out.println("Cliente: " + oficina.getNome());
         System.out.println("Data: " + data);
         System.out.println("Itens do Pedido:");
         ArrayList<Produto> produtosExibidos = new ArrayList<>();
