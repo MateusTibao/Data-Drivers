@@ -39,14 +39,6 @@ public class Compra {
         }
     }
 
-    public double calcularValorTotal() {
-        double total = 0;
-        for (Produto produto : produtos) {
-            total += produto.getPreco();
-        }
-        return total;
-    }
-
     public void removerProduto(Produto produto, int quantidade) {
         if (finalizada) {
             System.out.println("Erro: Não é possível remover produtos de uma compra finalizada.");
@@ -54,8 +46,8 @@ public class Compra {
         }
 
         int count = 0;
-        for (int i = 0; i < produtos.size(); i++) {
-            if (produtos.get(i).equals(produto)) {
+        for (Produto p : produtos) {
+            if (p.equals(produto)) {
                 count++;
             }
         }
@@ -72,6 +64,10 @@ public class Compra {
         }
     }
 
+    public double calcularValorTotal() {
+        return valorTotal;
+    }
+
     public void exibirPedido() {
         if (produtos.isEmpty()) {
             System.out.println("Pedido vazio.");
@@ -82,8 +78,8 @@ public class Compra {
         System.out.println("Cliente: " + oficina.getNome());
         System.out.println("Data: " + data);
         System.out.println("Itens do Pedido:");
-        ArrayList<Produto> produtosExibidos = new ArrayList<>();
 
+        ArrayList<Produto> produtosExibidos = new ArrayList<>();
         for (int i = 0; i < produtos.size(); i++) {
             Produto produtoAtual = produtos.get(i);
 
@@ -109,12 +105,12 @@ public class Compra {
         System.out.println("Estoque dos produtos:");
 
         ArrayList<Produto> produtosExibidos = new ArrayList<>();
-
         for (int i = 0; i < produtos.size(); i++) {
             Produto produtoAtual = produtos.get(i);
 
             if (!produtosExibidos.contains(produtoAtual)) {
                 int quantidade = 0;
+
                 for (int j = i; j < produtos.size(); j++) {
                     if (produtos.get(j).equals(produtoAtual)) {
                         quantidade++;
@@ -127,9 +123,6 @@ public class Compra {
             }
         }
     }
-
-
-
 
     public void finalizarCompra() {
         if (finalizada) {
